@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 
@@ -9,6 +10,9 @@ public class equation : MonoBehaviour {
 	int population;
 	double birthThreshold;
 	System.Random rng = new System.Random();
+
+    //The UI component where the results of this script will be displayed
+    Text textUI;
 
 	int popChange() {
 		//First, if there is no food/water, you will lose about a tenth of your population per day
@@ -43,8 +47,8 @@ public class equation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+        textUI = GetComponent<Text>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -55,5 +59,10 @@ public class equation : MonoBehaviour {
 			days++;
 			population+=this.popChange(); //The population change function is called once a day
 		}
+
+        textUI.text = "Population: " + population + "\n"
+            + "Birth threshold: " + birthThreshold + "\n"
+            + "Food: " + foodStored + "\n"
+            + "Water: " + waterStored + "\n";
 	}
 }
