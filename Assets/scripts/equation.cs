@@ -5,6 +5,11 @@ using System.Collections;
 
 public class equation : MonoBehaviour {
 
+	public int initialPopulation;
+	public int initialFood;
+	public int initialWater;
+	public double cycleTime;
+
 	int foodStored;
 	int waterStored;
 	int population;
@@ -48,13 +53,16 @@ public class equation : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         textUI = GetComponent<Text>();
+        population = initialPopulation;
+        foodStored = initialFood;
+        waterStored = initialWater;
     }
 	
 	// Update is called once per frame
 	void Update () {
 		timeElapsed += Time.deltaTime;
 		//A day ticks every 60 seconds
-		if (timeElapsed >= 60) {
+		if (timeElapsed >= cycleTime) {
 			timeElapsed=0;
 			days++;
 			population+=this.popChange(); //The population change function is called once a day
