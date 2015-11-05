@@ -9,11 +9,14 @@ public class UnitBehavior : MonoBehaviour {
 
 	// Member variables
 	// To add different possible unit states, add to this enum
-	public enum State {IDLE, RUN_AWAY, PANIC};
+	public enum State {IDLE, MOVING, RUN_AWAY, PANIC};
 	// updateTime is the time in seconds that the unit takes to update it's priority	
 	protected float updateTime = 10;
 	// uniteState is the unit's current state
 	public State unitState = State.IDLE;
+	// Chance that a unit will randomly move, gets checked every frame
+	// 0.02f is pretty frequent
+	protected float randomMoveChance = 0.02f;
 
 	// Use this for initialization
 	void Start () {
@@ -38,7 +41,7 @@ public class UnitBehavior : MonoBehaviour {
 	protected void act () {
 		switch (unitState) {
 			case State.IDLE:
-				if (Random.value < 0.02f) {
+				if (Random.value < randomMoveChance) {
 					randomMove();
 				}
 				break;
@@ -54,5 +57,9 @@ public class UnitBehavior : MonoBehaviour {
 		
 		unitState = State.IDLE;
 		//print("State being updated");
+	}
+
+	public State getState() {
+		return unitState;
 	}
 }
