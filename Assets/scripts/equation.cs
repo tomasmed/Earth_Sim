@@ -5,20 +5,30 @@ using System.Collections;
 
 public class equation : MonoBehaviour {
 
-	public int initialPopulation;
-	public int initialFood;
-	public int initialWater;
-	public double cycleTime;
-
-	int foodStored;
-	int waterStored;
-	int population;
-	double birthThreshold;
+	public int foodStored=50; //These values are initialized just for testing
+	public int waterStored=40;
+	public int population=1;
+	public float birthThreshold;
 	System.Random rng = new System.Random();
+	public double timeElapsed = 0;
+	int days = 0;
 
-    //The UI component where the results of this script will be displayed
-    Text textUI;
+	//The UI component where the results of this script will be displayed
+	Text textUI;
 
+	void resourceComp() {
+		foodStored -= population;
+		waterStored -= population;
+		if (foodStored < 0) { //To do: optimize
+			foodStored = 0;
+		}
+		if (waterStored < 0) {
+			waterStored = 0;
+		}
+	}
+
+	//As of right now, the lesser of either food or water is treated as the "limiting" resource
+	//All calculations will use this value and disregard the greater one
 	int popChange() {
 		//First, if there is no food/water, you will lose about a tenth of your population per day
 		if (Mathf.Min(foodStored, waterStored) <= 0) {
@@ -26,12 +36,12 @@ public class equation : MonoBehaviour {
 			return -1-population/10;
 		}else { //Otherwise, if you do have food/water...
 			//If you have less food/water than population, your population will neither increase nor decrease
-			if (Mathf.Min (foodStored, waterStored) < population) {
+			if (Mathf.Min(foodStored, waterStored) < population) {
 				return 0;
 			}else { //If you have more food/water than population...
 				//First, a birth threshold is calculated.
 				//This is a number between 0 and 100, given by the formula:
-				birthThreshold = (Mathf.Min(foodStored, waterStored)-population)/population*100;
+				birthThreshold = (Mathf.Min((float)foodStored, (float)waterStored)-(float)population)/(float)population*100;
 				//The threshold is capped at 100, this is attained when you have twice as much food/water as population
 				if (birthThreshold > 100)
 					birthThreshold = 100;
@@ -46,31 +56,27 @@ public class equation : MonoBehaviour {
 			}
 		}
 	}
-
-	double timeElapsed = 0;
-	int days = 0;
-
+	
 	// Use this for initialization
 	void Start () {
-        textUI = GetComponent<Text>();
-        population = initialPopulation;
-        foodStored = initialFood;
-        waterStored = initialWater;
-    }
+		textUI = GetComponent<Text>();
+	}
 	
 	// Update is called once per frame
 	void Update () {
 		timeElapsed += Time.deltaTime;
-		//A day ticks every 60 seconds
-		if (timeElapsed >= cycleTime) {
+		//Right now, a day ticks every 2 seconds, this is just for testing
+		if (timeElapsed >= 2) {
 			timeElapsed=0;
 			days++;
 			population+=this.popChange(); //The population change function is called once a day
+			this.resourceComp();
+			textUI.text = "Population: " + population + "\n"
+				+ "Birth threshold: " + birthThreshold + "\n"
+					+ "Food: " + foodStored + "\n"
+					+ "Water: " + waterStored + "\n";
 		}
 
-        textUI.text = "Population: " + population + "\n"
-            + "Birth threshold: " + birthThreshold + "\n"
-            + "Food: " + foodStored + "\n"
-            + "Water: " + waterStored + "\n";
+
 	}
 }
