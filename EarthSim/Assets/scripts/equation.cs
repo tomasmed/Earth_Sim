@@ -5,9 +5,9 @@ using System.Collections;
 
 public class equation : MonoBehaviour {
 
-	public int foodStored=50; //These values are initialized just for testing
-	public int waterStored=40;
-	public int population=1;
+	public static int foodStored=50; //These values are initialized just for testing
+	public static int waterStored=40;
+	public static int population=1;
 	public float birthThreshold;
 	System.Random rng = new System.Random();
 	public double timeElapsed = 0;
