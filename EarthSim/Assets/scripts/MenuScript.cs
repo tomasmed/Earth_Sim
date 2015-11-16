@@ -22,7 +22,6 @@ public class MenuScript : MonoBehaviour {
 		#else
 			Application.Quit();
 		#endif
-		
 	}
 	
 	// Update is called once per frame

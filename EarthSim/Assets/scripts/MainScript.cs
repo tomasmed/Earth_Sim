@@ -33,14 +33,8 @@ public class MainScript : MonoBehaviour {
 
     void getInput() {
 
-        if (Input.GetKeyDown("escape")) {
-            isPaused = !isPaused;
-            Time.timeScale = (isPaused) ? 0 : 1;
-            if(isPaused)
-                pauseMenu.SetActive(true);
-            else
-                pauseMenu.SetActive(false);
-        }
+        if (Input.GetKeyDown("escape"))
+            togglePause();
 
         if (Input.GetMouseButtonDown(0)) {
 
@@ -54,6 +48,19 @@ public class MainScript : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void togglePause() {
+        isPaused = !isPaused;
+            Time.timeScale = (isPaused) ? 0 : 1;
+            if(isPaused)
+                pauseMenu.SetActive(true);
+            else
+                pauseMenu.SetActive(false);
+    }
+
+    public void EndGame() {
+        Application.LoadLevel("GameOver");
     }
 
     void moveCamera() {
