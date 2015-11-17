@@ -25,9 +25,10 @@ public class Person : UnitBehavior {
 						unitState = State.MOVING;
 						Vector3 targetPoint = new Vector3 (waypoint.x, 0.5f, waypoint.z);
 						transform.position = Vector3.MoveTowards (transform.position, targetPoint, Time.deltaTime * speed);
-						if (Mathf.Abs ((transform.position - waypoint).magnitude) < 0.1) {
+						if (Mathf.Abs ((transform.position.x - waypoint.x) + (transform.position.z - waypoint.z)) < 0.1) {
 								waypoint = Vector3.zero;
 								unitState = State.IDLE;
+								print("found");
 						}
 				}
 		base.act();
