@@ -44,7 +44,7 @@ public class MainScript : MonoBehaviour {
                 waypoint.transform.position = hit.point;
                 Person[] p = GameObject.FindObjectsOfType<Person>();
                 for (int i = 0; i < p.Length; i++) {
-                    p[i].setWaypoint(waypoint);
+                    p[i].setWaypoint(waypoint, true);
                 }
             }
         }

@@ -9,7 +9,7 @@ public class UnitBehavior : MonoBehaviour {
 
 	// Member variables
 	// To add different possible unit states, add to this enum
-	public enum State {IDLE, MOVING, RUN_AWAY, PANIC};
+	public enum State {IDLE, MOVING, RUN_AWAY, PANIC, PLAYER_MOVE};
 	// updateTime is the time in seconds that the unit takes to update it's priority	
 	protected float updateTime = 10;
 	// uniteState is the unit's current state
@@ -45,6 +45,7 @@ public class UnitBehavior : MonoBehaviour {
 					randomMove();
 				}
 				break;
+			case State.PLAYER_MOVE: break;
 		}
 	}
 
@@ -53,8 +54,9 @@ public class UnitBehavior : MonoBehaviour {
 		print("WARNING: UnitBehavior.randomMove should never be called!");
 	}
 
+	// 
 	protected void updateState() {
-		
+		if (unitState == State.PLAYER_MOVE) return;
 		unitState = State.IDLE;
 		//print("State being updated");
 	}

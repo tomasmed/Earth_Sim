@@ -45,14 +45,15 @@ public class Person : UnitBehavior {
 		}
 	}
 	
-	public void setWaypoint(GameObject waypoint)
+	public void setWaypoint(GameObject waypoint, bool player_move = false)
 	{
-		this.waypoint = waypoint.transform.position;
+		setWaypoint(waypoint.transform.position, player_move);
 	}
 
-	public void setWaypoint(Vector3 waypoint)
+	public void setWaypoint(Vector3 waypoint, bool player_move = false)
 	{
 		this.waypoint = waypoint;
+		if (player_move) unitState = State.PLAYER_MOVE;
 	}
 	
 
@@ -64,6 +65,7 @@ public class Person : UnitBehavior {
 	// Creates a new waypoint GameObject with a random position relatively close to the current position
 	// Uses this GameObject to call setWaypoint
 	protected override void randomMove() {
+		if (unitState == State.PLAYER_MOVE) return;
 		Vector3 newWaypoint = new Vector3();
 		newWaypoint = new Vector3(this.transform.position.x + (Random.value * 20) - 10,
 		                                             this.transform.position.y,
