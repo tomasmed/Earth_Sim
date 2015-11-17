@@ -6,7 +6,7 @@ using System.Collections;
 public class equation : MonoBehaviour {
 
 	public static int foodStored=50; //These values are initialized just for testing
-	public static int waterStored=40;
+	public static int waterStored=60;
 	public static int population=1;
 	public float birthThreshold;
 	System.Random rng = new System.Random();
@@ -66,17 +66,16 @@ public class equation : MonoBehaviour {
 	void Update () {
 		timeElapsed += Time.deltaTime;
 		//Right now, a day ticks every 2 seconds, this is just for testing
-		if (timeElapsed >= 2) {
+		if (timeElapsed >= 5) {
 			timeElapsed=0;
 			days++;
 			population+=this.popChange(); //The population change function is called once a day
 			this.resourceComp();
-			textUI.text = "Population: " + population + "\n"
-				+ "Birth threshold: " + birthThreshold + "\n"
-					+ "Food: " + foodStored + "\n"
-					+ "Water: " + waterStored + "\n";
 		}
-
+		textUI.text = "Population: " + population + "\n"
+			+ "Birth threshold: " + birthThreshold + "\n"
+				+ "Food: " + foodStored + "\n"
+				+ "Water: " + waterStored + "\n";
 
 	}
 }

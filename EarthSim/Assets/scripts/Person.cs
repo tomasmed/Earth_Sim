@@ -35,8 +35,14 @@ public class Person : UnitBehavior {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.gameObject.CompareTag("Consumable"))
-			Destroy(other.gameObject);
+		if (other.gameObject.CompareTag ("Food")) {
+			Destroy (other.gameObject);
+			equation.foodStored += 5;
+		}
+		if (other.gameObject.CompareTag ("Water")) {
+			Destroy (other.gameObject);
+			equation.waterStored += 5;
+		}
 	}
 	
 	public void setWaypoint(GameObject waypoint)
