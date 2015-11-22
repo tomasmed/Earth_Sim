@@ -75,7 +75,7 @@ public class equation : MonoBehaviour {
 		textUI.text = "Population: " + population + "\n"
 			+ "Birth threshold: " + birthThreshold + "\n"
 				+ "Food: " + foodStored + "\n"
-				+ "Water: " + waterStored + "\n";
+				+ "Water: " + waterStored;
 
 	}
 }
